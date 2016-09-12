@@ -22,6 +22,7 @@ public class MainView extends JFrame implements MyView{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnManuel;
+	private JButton btnEffets;
 
 	/**
 	 * Launch the application.
@@ -61,6 +62,10 @@ public class MainView extends JFrame implements MyView{
 		btnManuel = new JButton("Gestion des m\u00E9dicaments");
 		btnManuel.setBounds(54, 56, 309, 23);
 		contentPane.add(btnManuel);
+		
+		btnEffets = new JButton("Gestion des effets");
+		btnEffets.setBounds(54, 126, 309, 23);
+		contentPane.add(btnEffets);
 		
 		JButton btnFermer = new JButton("Quitter");
 		btnFermer.addActionListener(new ActionListener() {
