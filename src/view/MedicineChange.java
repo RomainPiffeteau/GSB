@@ -28,6 +28,7 @@ public class MedicineChange extends JDialog implements MyView{
 	public static JButton btnAnnuler;
 	private static JTextField txtNom;
 	private static JComboBox<String> cbxFormes;
+	private static JComboBox<String> cbxEffets;
 	private static JTextField txtBrevet;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
@@ -42,6 +43,13 @@ public class MedicineChange extends JDialog implements MyView{
 	 */
 	public static String getTxtForm(){
 		return (String) cbxFormes.getSelectedItem();
+	}
+	/**
+	 * Méthode statique permettant d'obtenir la sélection de la liste déroulante forme
+	 * @return la selection de la liste déroulante forme
+	 */
+	public static String getTxtEffet(){
+		return (String) cbxEffets.getSelectedItem();
 	}
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte date brevet
@@ -81,13 +89,23 @@ public class MedicineChange extends JDialog implements MyView{
 		
 		JLabel lblForme = new JLabel("Forme :");
 		lblForme.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblForme.setBounds(63, 127, 70, 14);
+		lblForme.setBounds(63, 168, 70, 14);
 		contentPanel.add(lblForme);
 		
 		cbxFormes = new JComboBox<String>(forms);
-		cbxFormes.setBounds(140, 124, 192, 20);
+		cbxFormes.setBounds(140, 165, 192, 20);
 		contentPanel.add(cbxFormes);
 		cbxFormes.setSelectedItem(medicine[1]);
+		
+		JLabel lblEffet = new JLabel("Effet :");
+		lblEffet.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblEffet.setBounds(63, 127, 70, 14);
+		contentPanel.add(lblEffet);
+		
+		cbxEffets = new JComboBox<String>(forms);
+		cbxEffets.setBounds(140, 124, 192, 20);
+		contentPanel.add(cbxEffets);
+		cbxEffets.setSelectedItem(medicine[3]);
 		
 		JLabel lblDateBrevet = new JLabel("Date brevet :");
 		lblDateBrevet.setHorizontalAlignment(SwingConstants.RIGHT);
