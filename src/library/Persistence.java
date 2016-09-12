@@ -135,7 +135,7 @@ public abstract class Persistence {
 		}
 		return conn; 
 	}
-	
+
 	/**
 	 * Méthode de clôture de connexion
 	 * @param conn la connexion à fermer
