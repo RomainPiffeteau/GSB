@@ -17,6 +17,7 @@ import view.MedicineAdd;
 import view.MedicineChange;
 import view.MedicineHome;
 import view.MedicineSearch;
+import view.MedicineEffect;
 /**
  * Classe CONTROLEUR
  * @author xavier
@@ -112,7 +113,8 @@ public class Ctrl implements ActionListener, MouseListener{
 				break;
 			}
 			break;
-		case "MedicineEffects":
+		case "MedicineEffect":
+			break;
 			
 		case "MedicineAdd":
 			switch(what){
