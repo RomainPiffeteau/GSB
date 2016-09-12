@@ -171,5 +171,4 @@ public abstract class Persistence {
 			Persistence.closeConnection(cn);
 		}
 	}
-
 }
