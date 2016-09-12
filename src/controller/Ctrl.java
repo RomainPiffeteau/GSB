@@ -82,7 +82,7 @@ public class Ctrl implements ActionListener, MouseListener{
 				break;
 			case "effets":
 				//Création de la vue d'accueil des effets
-				MedicineEffects frameEffects = new MedicineEffects();
+				MedicineEffect frameEffects = new MedicineEffect();
 				//Assignation d'un observateur sur cette vue
 				frameEffects.assignListener(this);
 				//Affichage de la vue
