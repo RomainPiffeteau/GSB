@@ -255,5 +255,3 @@ public class Ctrl implements ActionListener, MouseListener{
 		
 	}
 }
-
-//testEB42
