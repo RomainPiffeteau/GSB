@@ -66,7 +66,7 @@ public class MedicineChange extends JDialog implements MyView{
 	 * @param forms les formes à intégrer dans la liste déroulante
 	 * @param medicine le détail du médicament à modifier
 	 */
-	public MedicineChange(String[] forms, String[] medicine) {
+	public MedicineChange(String[] forms, String[] medicine, String[] effects) {
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
@@ -102,7 +102,7 @@ public class MedicineChange extends JDialog implements MyView{
 		lblEffet.setBounds(63, 127, 70, 14);
 		contentPanel.add(lblEffet);
 		
-		cbxEffets = new JComboBox<String>(forms);
+		cbxEffets = new JComboBox<String>(effects);
 		cbxEffets.setBounds(140, 124, 192, 20);
 		contentPanel.add(cbxEffets);
 		cbxEffets.setSelectedItem(medicine[3]);

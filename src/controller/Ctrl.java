@@ -217,6 +217,20 @@ public class Ctrl implements ActionListener, MouseListener{
 	}
 
 	/**
+	 * Méthode permettant d'interroger le modèle afin de construire un tableau contenant toutes les formes
+	 * @return un tableau à une dimension contenant toutes les formes (nom)
+	 */
+	private String[] effectsBox(){
+		int i=0;
+		String[] liste=new String[Form.allTheEffects.size()];
+		for(Form l : Form.allTheEffects){
+			liste[i]=l.getName();
+			i++;
+		}
+		return liste;
+	}
+
+	/**
 	 * Méthode déclanchée lors de clics souris sur l'application
 	 */
 	@Override
@@ -235,7 +249,7 @@ public class Ctrl implements ActionListener, MouseListener{
 			data[1]=med.getItsForm().getName();
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
 			//Création de la vue de modification du médicament sélectionné dans la jtable
-			MedicineChange frame = new MedicineChange(this.formsBox(),data);
+			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.effectsBox());
 			//Assignation d'un observateur sur cette vue
 			frame.assignListener(this);
 			//Affichage de la vue
