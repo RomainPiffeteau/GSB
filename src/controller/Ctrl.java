@@ -54,7 +54,7 @@ public class Ctrl implements ActionListener, MouseListener{
 	}
 
 	/**
-	 * Méthode déclanchée lors de clics sur les boutons de l'application
+	 * Méthode déclenchée lors de clics sur les boutons de l'application
 	 */
 	@Override
 	public void actionPerformed(ActionEvent evt) {
@@ -80,6 +80,14 @@ public class Ctrl implements ActionListener, MouseListener{
 				//Affichage de la vue
 				frame.setVisible(true);
 				break;
+			case "effets":
+				//Création de la vue d'accueil des effets
+				MedicineEffect frameEffects = new MedicineEffect();
+				//Assignation d'un observateur sur cette vue
+				frameEffects.assignListener(this);
+				//Affichage de la vue
+				frameEffects.setVisible(true);
+				break;
 			}
 			break;
 		case "MedicineHome":
@@ -104,6 +112,8 @@ public class Ctrl implements ActionListener, MouseListener{
 				break;
 			}
 			break;
+		case "MedicineEffects":
+			
 		case "MedicineAdd":
 			switch(what){
 			case "valider":

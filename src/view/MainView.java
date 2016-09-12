@@ -85,6 +85,8 @@ public class MainView extends JFrame implements MyView{
 	@Override
 	public void assignListener(Ctrl ctrl) {
 		this.btnManuel.setActionCommand("MainView_manuel");
-		this.btnManuel.addActionListener(ctrl);		
+		this.btnManuel.addActionListener(ctrl);
+		this.btnEffets.setActionCommand("MainView_effets");
+		this.btnEffets.addActionListener(ctrl);
 	}
 }
