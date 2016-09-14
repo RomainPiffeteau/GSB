@@ -31,6 +31,15 @@ CREATE TABLE medicament(
 )
 GO
 ----------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE effet(
+    identifiant INT NOT NULL IDENTITY,
+    grade INT,
+    description VARCHAR(50),
+    CONSTRAINT pk_effet PRIMARY KEY (identifiant)
+)
+GO
+
+----------------------------------------------------------------------------------------------------------------------------------------------
 --INSERTION DES TUPLES DANS LA BASE-------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO forme (nom) VALUES ('Comprimé');
@@ -59,6 +68,8 @@ GO
 --CREATION DES PROCEDURES STOCKEES ET TRIGGERS----------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------------------------------
+
 ----------------------------------------------------------------------------------------------------------------------------------------------
 --CREATION DES UTILISATEURS ET DES DROITS--------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,22 +81,5 @@ GO
 REVOKE SELECT,INSERT,UPDATE,DELETE TO JeanMedicament
 GRANT SELECT,INSERT,UPDATE ON medicament TO JeanMedicament
 GRANT SELECT ON forme TO JeanMedicament
+GRANT SELECT,INSERT ON effet TO JeanMedicament
 GO
-------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-CREATE TABLE effet(
-    identifiant INT NOT NULL IDENTITY,
-    grade INT,
-    description VARCHAR(50),
-    CONSTRAINT pk_effet PRIMARY KEY (identifiant)
-)
-
-
-CREATE TABLE medicEffet(
-	idMedic INT NOT NULL,
-	idEffet INT NOT NULL,
-	CONSTRAINT fk_medicEffet_medicament FOREIGN KEY (idMedic) REFERENCES medicament (identifiant),
-	CONSTRAINT fk_medicEffet_effet FOREIGN KEY (idEffet) REFERENCES effet (identifiant)
-)

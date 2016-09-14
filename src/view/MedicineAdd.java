@@ -75,7 +75,7 @@ public class MedicineAdd extends JDialog implements MyView{
 	 * Create the dialog.
 	 * @param forms les formes à intégrer dans la liste déroulante
 	 */
-	public MedicineAdd(String[] forms) {
+	public MedicineAdd(String[] forms, String[] effects) {
 		setTitle("M\u00E9dicament - Ajouter");
 		setModal(true);
 		setBounds(100, 100, 450, 300);
