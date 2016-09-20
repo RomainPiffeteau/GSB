@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -65,8 +67,23 @@ public MedicineEffect()
 	JRadioButton un = new JRadioButton("1");
 	un.setBounds(158, 91, 109, 23);
 	fenetreEffet.add(un);
+	
+	JButton buttonAnnuler = new JButton("Annuler");
+	buttonAnnuler.setBounds(178, 213, 89, 23);
+	fenetreEffet.add(buttonAnnuler);
 	ButtonGroup bg = new ButtonGroup();
 	
+	buttonCreation.addActionListener(new ActionListener()
+			{public void actionPerformed(ActionEvent e) {
+		dispose();
+			}
+			});
+	
+	buttonAnnuler.addActionListener(new ActionListener()
+	{public void actionPerformed(ActionEvent e) {
+dispose();
+	}
+	});
 
 	
 }
