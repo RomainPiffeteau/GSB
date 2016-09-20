@@ -11,13 +11,13 @@ import javax.swing.JTable;
 
 import library.DatesConverter;
 import library.Persistence;
+import model.Effect;
 import model.Form;
 import model.Medicine;
 import view.MedicineAdd;
 import view.MedicineChange;
 import view.MedicineHome;
 import view.MedicineSearch;
-import view.MedicineEffect;
 /**
  * Classe CONTROLEUR
  * @author xavier
@@ -35,18 +35,31 @@ public class Ctrl implements ActionListener, MouseListener{
 		try {
 			dataForm = Persistence.load("forme");
 		} catch (SQLException e) {
-			String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+			String message = "Erreur lors de l'échange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
 			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 		}
 		for(int i=0;i<dataForm.length;i++){
 			new Form(Integer.parseInt(dataForm[i][0]),dataForm[i][1]);
 		}
+		
+		//Création des objets Effet
+		String[][] dataEffect = null;
+		try {
+			dataEffect = Persistence.load("effet");
+		} catch (SQLException e) {
+			String message = "Erreur lors de l'échange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
+		}
+		for(int i=0;i<dataEffect.length;i++){
+			new Effect(Integer.parseInt(dataEffect[i][0]),Integer.parseInt(dataEffect[i][1]),dataEffect[i][2]);
+		}
+		
 		//Création des objets Medicine
 		String[][] dataMed = null;
 		try {
-			dataMed = Persistence.load("Medicament");
+			dataMed = Persistence.load("medicament");
 		} catch (SQLException e) {
-			String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+			String message = "Erreur lors de l'échange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
 			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 		}
 		for(int i=0;i<dataMed.length;i++){
@@ -81,21 +94,13 @@ public class Ctrl implements ActionListener, MouseListener{
 				//Affichage de la vue
 				frame.setVisible(true);
 				break;
-			case "effets":
-				//Création de la vue d'accueil des effets
-				MedicineEffect frameEffects = new MedicineEffect();
-				//Assignation d'un observateur sur cette vue
-				frameEffects.assignListener(this);
-				//Affichage de la vue
-				frameEffects.setVisible(true);
-				break;
 			}
 			break;
 		case "MedicineHome":
 			switch(what){
 			case "ajout":
 				//Création de la vue d'ajout d'un médicament
-				MedicineAdd frame = new MedicineAdd(this.formsBox());
+				MedicineAdd frame = new MedicineAdd(this.formsBox(), this.effectsBox());
 				//Assignation d'un observateur sur cette vue
 				frame.assignListener(this);
 				//Affichage de la vue
@@ -217,6 +222,20 @@ public class Ctrl implements ActionListener, MouseListener{
 	}
 
 	/**
+	 * Méthode permettant d'interroger le modèle afin de construire un tableau contenant toutes les formes
+	 * @return un tableau à une dimension contenant toutes les formes (nom)
+	 */
+	private String[] effectsBox(){
+		int i=0;
+		String[] liste=new String[Effect.allTheEffects.size()];
+		for(Effect l : Effect.allTheEffects){
+			liste[i]=l.getName();
+			i++;
+		}
+		return liste;
+	}
+
+	/**
 	 * Méthode déclanchée lors de clics souris sur l'application
 	 */
 	@Override
@@ -235,7 +254,7 @@ public class Ctrl implements ActionListener, MouseListener{
 			data[1]=med.getItsForm().getName();
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
 			//Création de la vue de modification du médicament sélectionné dans la jtable
-			MedicineChange frame = new MedicineChange(this.formsBox(),data);
+			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.effectsBox());
 			//Assignation d'un observateur sur cette vue
 			frame.assignListener(this);
 			//Affichage de la vue

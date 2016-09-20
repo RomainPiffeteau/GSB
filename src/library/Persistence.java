@@ -56,6 +56,25 @@ public abstract class Persistence {
 			Persistence.closeConnection(cn);
 		}
 	}
+	/**
+	 * Méthode d'INSERT d'un nouvel effet
+	 * @param name le nom du nouvel effet
+	 * @throws SQLException l'exception SQL levée
+	 */
+	public static void insertEffect(int grade, String description) throws SQLException{
+		Connection cn = Persistence.connection();
+		Statement stmt;
+		
+		try {
+			 stmt = cn.createStatement();
+			stmt.executeUpdate("INSERT INTO effet (grade, description) VALUES ("+grade+" , '"+description+"')");
+		} catch (SQLException e) {
+			throw e;
+		}
+		finally{
+			Persistence.closeConnection(cn);
+		}
+	}
 
 	/**
 	 * Méthode de SELECT des tables
@@ -88,7 +107,7 @@ public abstract class Persistence {
 			columnCount = metadata.getColumnCount();
 			//Déclaration du tableau qui contiendra toutes les informations
 			result = new String[rowCount][columnCount];
-			//PArcours du jeu d'enregistrement
+			//Parcours du jeu d'enregistrement
 			rowNum = 0;
 	        while (rs.next()) 
 	        {
@@ -117,23 +136,22 @@ public abstract class Persistence {
 	 * @throws SQLException l'exception SQL levée
 	 */
 	private static Connection connection() throws SQLException{
-		String host = "192.168.222.72";
-//		String host = "127.0.0.1:3306";
+		String host = "192.168.222.72"; //Notre serveur du lycée
+//		String host = "127.0.0.1:3306"; //Serveur Local du lycée
+//		String host = "localhost:1434";
 		String base = "gsbjm";
 		String user = "JeanMedicament";
 		String passwd = "zouzou";
-		Connection conn = null;
+		Connection con = null;
 		try
 		{
-			String connectionString ="jdbc:sqlserver://"+host+";database="+base+";user="+user+";password="+passwd;
-//			String connectionString ="jdbc:mysql://"+host+"/"+base+"?user="+user+"&password="+passwd;
-			conn = DriverManager.getConnection(connectionString);
+			con = DriverManager.getConnection("jdbc:sqlserver://"+host+";database="+base+";user="+user+";password="+passwd);
 		}
 		catch (SQLException e) 
 		{
 			throw e;
 		}
-		return conn; 
+		return con; 
 	}
 
 	/**
