@@ -27,7 +27,7 @@ public class MedicineEffect extends JFrame implements MyView{
 public static void init(){
 	txtNomEffet.setText("");
 	un.setSelected(true);
-	
+
 }
 
 	

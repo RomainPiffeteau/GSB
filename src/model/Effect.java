@@ -88,5 +88,14 @@ public class Effect {
 		}
 		return found;
 	}
+	
+	public static int getNextId(){
+		int id = 0;
+		for(Effect e : allTheEffects){
+			if(e.id>=id)
+				id = e.id+1;
+		}
+		return id;
+	}
 
 }
