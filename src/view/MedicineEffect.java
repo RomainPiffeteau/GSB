@@ -22,7 +22,9 @@ public class MedicineEffect extends JFrame implements MyView{
 	private JPanel fenetreEffet;
 	private static JTextField txtNomEffet;
 	private static JRadioButton un;
-
+	private static JRadioButton deux;
+	private static JRadioButton trois;
+	private static JRadioButton quatre;
 	
 public static void init(){
 	txtNomEffet.setText("");
@@ -56,15 +58,15 @@ public MedicineEffect()
 	lblNiveau.setBounds(83, 95, 50, 14);
 	fenetreEffet.add(lblNiveau);
 	
-	JRadioButton deux = new JRadioButton("2");
+	deux = new JRadioButton("2");
 	deux.setBounds(199, 117, 109, 23);
 	fenetreEffet.add(deux);
 	
-	JRadioButton trois = new JRadioButton("3");
+	trois = new JRadioButton("3");
 	trois.setBounds(199, 143, 109, 23);
 	fenetreEffet.add(trois);
 	
-	JRadioButton quatre = new JRadioButton("4");
+	quatre = new JRadioButton("4");
 	quatre.setBounds(199, 169, 109, 23);
 	fenetreEffet.add(quatre);
 	
@@ -72,7 +74,7 @@ public MedicineEffect()
 	buttonCreation.setBounds(335, 228, 89, 23);
 	fenetreEffet.add(buttonCreation);
 	
-	JRadioButton un = new JRadioButton("1");
+	un = new JRadioButton("1");
 	un.setSelected(true);
 	un.setBounds(199, 91, 109, 23);
 	fenetreEffet.add(un);
@@ -112,9 +114,31 @@ public MedicineEffect()
 	}
 	});
 	
+	
+	
 
 	
 }
+
+public static String getTxtNomEffet(){
+	 if(txtNomEffet.getText().equals(""))
+	 	return null;
+	 	return txtNomEffet.getText();
+	}
+
+
+public static int getGrade(){
+	 int choice = 0;
+	 if(un.isSelected())
+	 	choice = 1;
+	 if(deux.isSelected())
+	 	choice = 2;
+	 if(trois.isSelected())
+	 	choice = 3;
+	 if(quatre.isSelected())
+	 	choice = 4;
+	 return choice;
+	 }
 
 @Override
 public void assignListener(Ctrl ctrl) {
