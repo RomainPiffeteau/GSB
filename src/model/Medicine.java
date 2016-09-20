@@ -100,6 +100,10 @@ public class Medicine {
 	public Effect getItsEffect(){
 		return itsEffect;
 	}
+	
+	public void setItsEffect(Effect e){
+		this.itsEffect = e;
+	}
 
 	
 }
