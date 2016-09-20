@@ -128,6 +128,32 @@ public class Ctrl implements ActionListener, MouseListener{
 			}
 			break;
 		case "MedicineEffect":
+			switch(what){
+			case "valider":
+				//Récupération des informations saisies par l'utilisateur
+				int grade = MedicineEffect.getGrade();
+				if(grade>4 || grade<1)
+					JOptionPane.showMessageDialog(null,"Le grade de sévérité est incorrect.","Erreur Selection",JOptionPane.WARNING_MESSAGE);
+				else{
+					Effect effect = new Effect(Effect.getNextId(), grade, MedicineEffect.getTxtNomEffet());
+					//INSERT dans la BD
+					try {
+						Persistence.insertEffect(grade, MedicineEffect.getTxtNomEffet());
+						//Message de confirmation pour l'utilisateur
+						JOptionPane.showMessageDialog(null,"L'effet a bien été ajouté","Confirmation Enregistrement",JOptionPane.INFORMATION_MESSAGE);
+						//Réinitialisation des champs
+						MedicineEffect.init();
+					} catch (SQLException e) {
+						String message = "Erreur lors de l'echange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
+						JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				break;
+			case "annuler":
+				//Réinitialisation des champs
+				MedicineEffect.init();
+				break;
+			}
 			break;
 			
 		case "MedicineAdd":
