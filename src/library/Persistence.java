@@ -21,7 +21,7 @@ public abstract class Persistence {
 	 * @param patentDate la date d'obtention du brevet du nouveau médicament
 	 * @throws SQLException l'exception SQL levée
 	 */
-	public static void insertMedicine(String name, int idForm, int idEffet, GregorianCalendar patentDate) throws SQLException{
+	public static void insertMedicine(String name, int idForm, GregorianCalendar patentDate, int idEffet) throws SQLException{
 		Connection cn = Persistence.connection();
 		Statement stmt;
 		try{
