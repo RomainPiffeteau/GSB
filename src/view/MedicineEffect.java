@@ -21,6 +21,14 @@ public class MedicineEffect extends JFrame implements MyView{
 	
 	private JPanel fenetreEffet;
 	private static JTextField txtNomEffet;
+	private static JRadioButton un;
+
+	
+public static void init(){
+	txtNomEffet.setText("");
+	un.setSelected(true);
+	
+}
 
 	
 public MedicineEffect()
@@ -49,41 +57,61 @@ public MedicineEffect()
 	fenetreEffet.add(lblNiveau);
 	
 	JRadioButton deux = new JRadioButton("2");
-	deux.setBounds(158, 117, 109, 23);
+	deux.setBounds(199, 117, 109, 23);
 	fenetreEffet.add(deux);
 	
 	JRadioButton trois = new JRadioButton("3");
-	trois.setBounds(158, 143, 109, 23);
+	trois.setBounds(199, 143, 109, 23);
 	fenetreEffet.add(trois);
 	
 	JRadioButton quatre = new JRadioButton("4");
-	quatre.setBounds(158, 169, 109, 23);
+	quatre.setBounds(199, 169, 109, 23);
 	fenetreEffet.add(quatre);
 	
 	JButton buttonCreation = new JButton("Cr\u00E9er");
-	buttonCreation.setBounds(302, 213, 89, 23);
+	buttonCreation.setBounds(335, 228, 89, 23);
 	fenetreEffet.add(buttonCreation);
 	
 	JRadioButton un = new JRadioButton("1");
-	un.setBounds(158, 91, 109, 23);
+	un.setSelected(true);
+	un.setBounds(199, 91, 109, 23);
 	fenetreEffet.add(un);
 	
+	JButton buttonFermer = new JButton("Fermer");
+	buttonFermer.setBounds(140, 228, 89, 23);
+	fenetreEffet.add(buttonFermer);
+	
 	JButton buttonAnnuler = new JButton("Annuler");
-	buttonAnnuler.setBounds(178, 213, 89, 23);
+	buttonAnnuler.setBounds(239, 228, 89, 23);
 	fenetreEffet.add(buttonAnnuler);
+	
+	JRadioButtonMenuItem rbGroup = new JRadioButtonMenuItem("");
+	rbGroup.setBounds(252, 86, 125, 125);
+	fenetreEffet.add(rbGroup);
 	ButtonGroup bg = new ButtonGroup();
+	bg.add(un);
+	bg.add(deux);
+	bg.add(quatre);
+	bg.add(trois);
 	
 	buttonCreation.addActionListener(new ActionListener()
 			{public void actionPerformed(ActionEvent e) {
-		dispose();
+				
 			}
 			});
 	
+	buttonFermer.addActionListener(new ActionListener()
+		{public void actionPerformed(ActionEvent e) {
+			dispose();
+		}
+		});
+	
 	buttonAnnuler.addActionListener(new ActionListener()
 	{public void actionPerformed(ActionEvent e) {
-dispose();
+		init();
 	}
 	});
+	
 
 	
 }
