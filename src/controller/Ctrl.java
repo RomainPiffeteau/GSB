@@ -16,6 +16,7 @@ import model.Form;
 import model.Medicine;
 import view.MedicineAdd;
 import view.MedicineChange;
+import view.MedicineEffect;
 import view.MedicineHome;
 import view.MedicineSearch;
 /**
@@ -93,6 +94,14 @@ public class Ctrl implements ActionListener, MouseListener{
 				frame.assignListener(this);
 				//Affichage de la vue
 				frame.setVisible(true);
+				break;
+			case "effets":
+				//Création de la vue d'accueil des effets
+				MedicineEffect frameEffects = new MedicineEffect();
+				//Assignation d'un observateur sur cette vue
+				frameEffects.assignListener(this);
+				//affichage de la vue
+				frameEffects.setVisible(true);
 				break;
 			}
 			break;
