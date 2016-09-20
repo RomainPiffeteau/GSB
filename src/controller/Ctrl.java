@@ -234,11 +234,11 @@ public class Ctrl implements ActionListener, MouseListener{
 
 	/**
 	 * Méthode permettant d'interroger le modèle afin de construire un tableau contenant tous les médicaments
-	 * @return un tableau à deux dimensions contenant tous les médicaments (nom,idForme,dateBrevet)
+	 * @return un tableau à deux dimensions contenant tous les médicaments (nom,idForme,dateBrevet, Effet)
 	 */
 	private String[][] medicinesTable() {
 		int i=0;
-		String[][] liste=new String[Medicine.allTheMedicines.size()][3];
+		String[][] liste=new String[Medicine.allTheMedicines.size()][4];
 		for(Medicine m : Medicine.allTheMedicines){
 			liste[i][0]=m.getName();
 			liste[i][1]=m.getItsForm().getName();
@@ -291,7 +291,7 @@ public class Ctrl implements ActionListener, MouseListener{
 			//Récupération du médicament à partir de ces informations
 			Medicine med = Medicine.getMedicineByName(laTable.getValueAt(row,0).toString());
 			//Création d'un tableau contenant le détail du médicament
-			String[] data = new String[3];
+			String[] data = new String[4];
 			data[0]=med.getName();
 			data[1]=med.getItsForm().getName();
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
