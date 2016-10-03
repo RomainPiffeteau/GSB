@@ -75,6 +75,26 @@ public abstract class Persistence {
 			Persistence.closeConnection(cn);
 		}
 	}
+	
+	/***
+	 * Méthode d'insertion de lien mediceffet
+	 * @param table le nom de la table SQL à sélectionner
+	 * @throws SQLException l'exception SQL levée
+	 */
+	public static void insertMedicEffect(int idMedic, int idEffet) throws SQLException{
+		Connection cn = Persistence.connection();
+		Statement stmt;
+		
+		try {
+			 stmt = cn.createStatement();
+			stmt.executeUpdate("INSERT INTO mediceffet (idMedic, idEffet) VALUES ("+idMedic+" , '"+idEffet+"')");
+		} catch (SQLException e) {
+			throw e;
+		}
+		finally{
+			Persistence.closeConnection(cn);
+		}
+	}
 
 	/**
 	 * Méthode de SELECT des tables

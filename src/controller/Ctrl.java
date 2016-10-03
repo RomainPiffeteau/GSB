@@ -280,6 +280,15 @@ public class Ctrl implements ActionListener, MouseListener{
 		}
 		return liste;
 	}
+	
+	/**
+	 * Méthode permettant d'interroger la bd afin de construire un tableau contenant tous les liens mediceffet
+	 * @return un tableau à deux dimensions contenant tous les liens mediceffet
+	 * @throws SQLException 
+	 */
+	public static String[][] getMedicEffets() throws SQLException{
+		return Persistence.load("mediceffet");
+	}
 
 	/**
 	 * Méthode déclanchée lors de clics souris sur l'application
