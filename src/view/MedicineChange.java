@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
 /**
  * Classe définissant la vue de modification d'un médicament
  * @author xavier
@@ -28,8 +29,8 @@ public class MedicineChange extends JDialog implements MyView{
 	public static JButton btnAnnuler;
 	private static JTextField txtNom;
 	private static JComboBox<String> cbxFormes;
-	private static JComboBox<String> cbxEffets;
 	private static JTextField txtBrevet;
+	private JTable table;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
 	 * @return le contenu du champ texte nom
@@ -69,7 +70,7 @@ public class MedicineChange extends JDialog implements MyView{
 	public MedicineChange(String[] forms, String[] medicine, String[] effects) {
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 429);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -89,34 +90,28 @@ public class MedicineChange extends JDialog implements MyView{
 		
 		JLabel lblForme = new JLabel("Forme :");
 		lblForme.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblForme.setBounds(63, 168, 70, 14);
+		lblForme.setBounds(63, 107, 70, 14);
 		contentPanel.add(lblForme);
 		
 		cbxFormes = new JComboBox<String>(/*forms*/);
-		cbxFormes.setBounds(140, 165, 192, 20);
+		cbxFormes.setBounds(140, 104, 192, 20);
 		contentPanel.add(cbxFormes);
 		cbxFormes.setSelectedItem(medicine[1]);
 		
-		JLabel lblEffet = new JLabel("Effet :");
-		lblEffet.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblEffet.setBounds(63, 127, 70, 14);
-		contentPanel.add(lblEffet);
-		
-		cbxEffets = new JComboBox<String>(/*effects*/);
-		cbxEffets.setBounds(140, 124, 192, 20);
-		contentPanel.add(cbxEffets);
-		cbxEffets.setSelectedItem(medicine[3]);
-		
 		JLabel lblDateBrevet = new JLabel("Date brevet :");
 		lblDateBrevet.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDateBrevet.setBounds(53, 86, 80, 14);
+		lblDateBrevet.setBounds(53, 76, 80, 14);
 		contentPanel.add(lblDateBrevet);
 		
 		txtBrevet = new JTextField();
-		txtBrevet.setBounds(140, 83, 192, 20);
+		txtBrevet.setBounds(140, 73, 192, 20);
 		contentPanel.add(txtBrevet);
 		txtBrevet.setColumns(10);
 		txtBrevet.setText(medicine[2]);
+		
+		table = new JTable();
+		table.setBounds(10, 135, 422, 223);
+		contentPanel.add(table);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

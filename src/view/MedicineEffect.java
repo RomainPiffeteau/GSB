@@ -25,6 +25,7 @@ public class MedicineEffect extends JFrame implements MyView{
 	private static JRadioButton deux;
 	private static JRadioButton trois;
 	private static JRadioButton quatre;
+	private static JButton buttonCreation;
 	
 public static void init(){
 	txtNomEffet.setText("");
@@ -72,6 +73,8 @@ public MedicineEffect()
 	
 	JButton buttonCreation = new JButton("Cr\u00E9er");
 	buttonCreation.setBounds(140, 228, 89, 23);
+	buttonCreation = new JButton("Cr\u00E9er");
+	buttonCreation.setBounds(335, 228, 89, 23);
 	fenetreEffet.add(buttonCreation);
 	
 	un = new JRadioButton("1");
@@ -98,7 +101,6 @@ public MedicineEffect()
 	
 	buttonCreation.addActionListener(new ActionListener()
 			{public void actionPerformed(ActionEvent e) {
-				
 			}
 			});
 	
@@ -142,7 +144,7 @@ public static int getGrade(){
 
 @Override
 public void assignListener(Ctrl ctrl) {
-	// TODO Auto-generated method stub
-	
+	this.buttonCreation.setActionCommand("MedicineEffect_valider");
+	this.buttonCreation.addActionListener(ctrl);
 }
 }
