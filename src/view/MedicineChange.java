@@ -46,13 +46,6 @@ public class MedicineChange extends JDialog implements MyView{
 		return (String) cbxFormes.getSelectedItem();
 	}
 	/**
-	 * Méthode statique permettant d'obtenir la sélection de la liste déroulante forme
-	 * @return la selection de la liste déroulante forme
-	 */
-	public static String getTxtEffet(){
-		return (String) cbxEffets.getSelectedItem();
-	}
-	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte date brevet
 	 * @return le contenu du champ texte date brevet
 	 */
@@ -110,8 +103,13 @@ public class MedicineChange extends JDialog implements MyView{
 		txtBrevet.setText(medicine[2]);
 		
 		table = new JTable();
-		table.setBounds(10, 135, 422, 223);
+		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
+		
+		JLabel lblEffets = new JLabel("Effet(s) :");
+		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEffets.setBounds(10, 135, 422, 14);
+		contentPanel.add(lblEffets);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
