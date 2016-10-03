@@ -71,7 +71,7 @@ public MedicineEffect()
 	fenetreEffet.add(quatre);
 	
 	JButton buttonCreation = new JButton("Cr\u00E9er");
-	buttonCreation.setBounds(335, 228, 89, 23);
+	buttonCreation.setBounds(140, 228, 89, 23);
 	fenetreEffet.add(buttonCreation);
 	
 	un = new JRadioButton("1");
@@ -80,7 +80,7 @@ public MedicineEffect()
 	fenetreEffet.add(un);
 	
 	JButton buttonFermer = new JButton("Fermer");
-	buttonFermer.setBounds(140, 228, 89, 23);
+	buttonFermer.setBounds(338, 228, 89, 23);
 	fenetreEffet.add(buttonFermer);
 	
 	JButton buttonAnnuler = new JButton("Annuler");
