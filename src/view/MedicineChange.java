@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Ctrl;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -105,6 +106,7 @@ public class MedicineChange extends JDialog implements MyView{
 		table = new JTable();
 		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
+		this.setJTable();
 		
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
@@ -129,6 +131,16 @@ public class MedicineChange extends JDialog implements MyView{
 				buttonPane.add(btnAnnuler);
 			}
 		}
+	}
+	
+	/**
+	 * Récupérer le tableau des liens mediceffet et le mettre dans la JTable
+	 * @throws SQLException 
+	 * 
+	 */
+	private void setJTable() throws SQLException{
+		String[][] mediceffet = Ctrl.getMedicEffets();
+		
 	}
 
 
