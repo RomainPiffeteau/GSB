@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 
 import controller.Ctrl;
 import java.awt.event.ActionListener;
@@ -60,8 +61,9 @@ public class MedicineChange extends JDialog implements MyView{
 	 * Create the dialog.
 	 * @param forms les formes à intégrer dans la liste déroulante
 	 * @param medicine le détail du médicament à modifier
+	 * @throws SQLException 
 	 */
-	public MedicineChange(String[] forms, String[] medicine, String[] effects) {
+	public MedicineChange(String[] forms, String[] medicine, String[][] effects) throws SQLException {
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 429);
@@ -106,7 +108,7 @@ public class MedicineChange extends JDialog implements MyView{
 		table = new JTable();
 		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
-		this.setJTable();
+		table.setModel(new TableModel());
 		
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
@@ -131,16 +133,6 @@ public class MedicineChange extends JDialog implements MyView{
 				buttonPane.add(btnAnnuler);
 			}
 		}
-	}
-	
-	/**
-	 * Récupérer le tableau des liens mediceffet et le mettre dans la JTable
-	 * @throws SQLException 
-	 * 
-	 */
-	private void setJTable() throws SQLException{
-		String[][] mediceffet = Ctrl.getMedicEffets();
-		
 	}
 
 

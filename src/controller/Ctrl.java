@@ -207,14 +207,14 @@ public class Ctrl implements ActionListener, MouseListener{
 				String nomF = MedicineChange.getTxtForm();
 				Form forme = Form.getFormByName(nomF);
 				String dateB = MedicineChange.getTxtPatentDate();
-				String nomEffet = MedicineChange.getTxtEffet();
-				Effect effet = Effect.getEffectByName(nomEffet);
+				/*String nomEffet = MedicineChange.getTxtEffet();
+				Effect effet = Effect.getEffectByName(nomEffet);*/
 				//Récupération de l'objet Medicine à modifier
 				Medicine med = Medicine.getMedicineByName(nom);
 				//Modification de celui-ci à travers les setteurs
 				med.setItsForm(forme);
 				med.setPatentDate(DatesConverter.FRStringToDate(dateB));
-				med.setItsEffect(effet);
+				//med.setItsEffect(effet);
 				//UPDATE dans la BD
 				try {
 					Persistence.updateMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate(), med.getItsEffect().getId());
@@ -286,7 +286,7 @@ public class Ctrl implements ActionListener, MouseListener{
 	 * @return un tableau à deux dimensions contenant tous les liens mediceffet
 	 * @throws SQLException 
 	 */
-	public static String[][] getMedicEffets() throws SQLException{
+	private String[][] getMedicEffets() throws SQLException{
 		return Persistence.load("mediceffet");
 	}
 
@@ -310,7 +310,7 @@ public class Ctrl implements ActionListener, MouseListener{
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
 			data[3]=med.getItsEffect().getName();
 			//Création de la vue de modification du médicament sélectionné dans la jtable
-			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.effectsBox());
+			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.getMedicEffets());
 			//Assignation d'un observateur sur cette vue
 			frame.assignListener(this);
 			//Affichage de la vue
