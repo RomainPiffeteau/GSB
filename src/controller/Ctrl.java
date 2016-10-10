@@ -310,11 +310,16 @@ public class Ctrl implements ActionListener, MouseListener{
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
 			data[3]=med.getItsEffect().getName();
 			//Création de la vue de modification du médicament sélectionné dans la jtable
-			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.getMedicEffets());
-			//Assignation d'un observateur sur cette vue
-			frame.assignListener(this);
-			//Affichage de la vue
-			frame.setVisible(true);
+			MedicineChange frame;
+			try {
+				frame = new MedicineChange(this.formsBox(), data, this.getMedicEffets());
+				//Assignation d'un observateur sur cette vue
+				frame.assignListener(this);
+				//Affichage de la vue
+				frame.setVisible(true);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		 } 
 	}
 
