@@ -100,26 +100,21 @@ public MedicineEffect()
 	bg.add(trois);
 	
 	buttonCreation.addActionListener(new ActionListener()
-			{public void actionPerformed(ActionEvent e) {
-			}
-			});
+		{public void actionPerformed(ActionEvent e) {
+		}
+	});
 	
 	buttonFermer.addActionListener(new ActionListener()
 		{public void actionPerformed(ActionEvent e) {
 			dispose();
 		}
-		});
-	
-	buttonAnnuler.addActionListener(new ActionListener()
-	{public void actionPerformed(ActionEvent e) {
-		init();
-	}
 	});
 	
-	
-	
-
-	
+	buttonAnnuler.addActionListener(new ActionListener()
+		{public void actionPerformed(ActionEvent e) {
+			init();
+		}
+	});
 }
 
 public static String getTxtNomEffet(){
@@ -144,7 +139,7 @@ public static int getGrade(){
 
 @Override
 public void assignListener(Ctrl ctrl) {
-	this.buttonCreation.setActionCommand("MedicineEffect_valider");
-	this.buttonCreation.addActionListener(ctrl);
+	MedicineEffect.buttonCreation.setActionCommand("MedicineEffect_valider");
+	MedicineEffect.buttonCreation.addActionListener(ctrl);
 }
 }

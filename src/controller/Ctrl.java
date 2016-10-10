@@ -175,7 +175,7 @@ public class Ctrl implements ActionListener, MouseListener{
 					String nomEffet = MedicineAdd.getTxtEffect();
 					Effect effet = Effect.getEffectByName(nomEffet);
 					//Création du nouvel objet Medicine
-					Medicine med = new Medicine(nom,forme,DatesConverter.FRStringToDate(dateB));
+					Medicine med = new Medicine(nom,forme,DatesConverter.USStringToDate(dateB));
 					//INSERT dans la BD
 					try {
 						Persistence.insertMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate());
@@ -211,7 +211,7 @@ public class Ctrl implements ActionListener, MouseListener{
 				Medicine med = Medicine.getMedicineByName(nom);
 				//Modification de celui-ci à travers les setteurs
 				med.setItsForm(forme);
-				med.setPatentDate(DatesConverter.FRStringToDate(dateB));
+				med.setPatentDate(DatesConverter.USStringToDate(dateB));
 				//med.setItsEffect(effet);
 				//UPDATE dans la BD
 				try {
