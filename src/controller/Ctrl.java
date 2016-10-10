@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 import library.DatesConverter;
 import library.Persistence;
@@ -66,10 +67,7 @@ public class Ctrl implements ActionListener, MouseListener{
 			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 		}
 		for(int i=0;i<dataMed.length;i++){
-			if(dataMed[i][6]!=null)
-				new Medicine(dataMed[i][1],Form.getFormById(Integer.parseInt(dataMed[i][5])),DatesConverter.USStringToDate(dataMed[i][2]), Effect.getEffectById(Integer.parseInt(dataMed[i][6])) );
-			else
-				new Medicine(dataMed[i][1],Form.getFormById(Integer.parseInt(dataMed[i][5])),DatesConverter.USStringToDate(dataMed[i][2]), Effect.getEffectById(0));
+			new Medicine(dataMed[i][1],Form.getFormById(Integer.parseInt(dataMed[i][5])),DatesConverter.USStringToDate(dataMed[i][2]));
 		}
 	}
 
@@ -177,10 +175,10 @@ public class Ctrl implements ActionListener, MouseListener{
 					String nomEffet = MedicineAdd.getTxtEffect();
 					Effect effet = Effect.getEffectByName(nomEffet);
 					//Création du nouvel objet Medicine
-					Medicine med = new Medicine(nom,forme,DatesConverter.FRStringToDate(dateB), effet);
+					Medicine med = new Medicine(nom,forme,DatesConverter.FRStringToDate(dateB));
 					//INSERT dans la BD
 					try {
-						Persistence.insertMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate(),med.getItsEffect().getId());
+						Persistence.insertMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate());
 						//Message de confirmation pour l'utilisateur
 						JOptionPane.showMessageDialog(null,"Le médicament a bien été ajouté","Confirmation Enregistrement",JOptionPane.INFORMATION_MESSAGE);
 						//Réinitialisation des champs
@@ -217,7 +215,7 @@ public class Ctrl implements ActionListener, MouseListener{
 				//med.setItsEffect(effet);
 				//UPDATE dans la BD
 				try {
-					Persistence.updateMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate(), med.getItsEffect().getId());
+					Persistence.updateMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate());
 					//Mise à jour de la jtable
 					String[][] dataTable = this.medicinesTable();
 					String[] dataColumns = {"Nom","Forme","Brevet"};
@@ -242,12 +240,11 @@ public class Ctrl implements ActionListener, MouseListener{
 	 */
 	private String[][] medicinesTable() {
 		int i=0;
-		String[][] liste=new String[Medicine.allTheMedicines.size()][4];
+		String[][] liste=new String[Medicine.allTheMedicines.size()][3];
 		for(Medicine m : Medicine.allTheMedicines){
 			liste[i][0]=m.getName();
 			liste[i][1]=m.getItsForm().getName();
 			liste[i][2]=DatesConverter.dateToStringFR(m.getPatentDate());
-			liste[i][3]=m.getItsEffect().getName();
 			i++;
 		}
 		return liste;
@@ -304,17 +301,22 @@ public class Ctrl implements ActionListener, MouseListener{
 			//Récupération du médicament à partir de ces informations
 			Medicine med = Medicine.getMedicineByName(laTable.getValueAt(row,0).toString());
 			//Création d'un tableau contenant le détail du médicament
-			String[] data = new String[4];
+			String[] data = new String[3];
 			data[0]=med.getName();
 			data[1]=med.getItsForm().getName();
 			data[2]=DatesConverter.dateToStringFR(med.getPatentDate());
-			data[3]=med.getItsEffect().getName();
 			//Création de la vue de modification du médicament sélectionné dans la jtable
-			MedicineChange frame = new MedicineChange(this.formsBox(), data, this.getMedicEffets());
-			//Assignation d'un observateur sur cette vue
-			frame.assignListener(this);
-			//Affichage de la vue
-			frame.setVisible(true);
+			try {
+				MedicineChange frame;
+				frame = new MedicineChange(this.formsBox(), data, this.getMedicEffets());
+				//Assignation d'un observateur sur cette vue
+				frame.assignListener(this);
+				//Affichage de la vue
+				frame.setVisible(true);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		 } 
 	}
 

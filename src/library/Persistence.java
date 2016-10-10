@@ -21,15 +21,15 @@ public abstract class Persistence {
 	 * @param patentDate la date d'obtention du brevet du nouveau médicament
 	 * @throws SQLException l'exception SQL levée
 	 */
-	public static void insertMedicine(String name, int idForm, GregorianCalendar patentDate, int idEffet) throws SQLException{
+	public static void insertMedicine(String name, int idForm, GregorianCalendar patentDate) throws SQLException{
 		Connection cn = Persistence.connection();
 		Statement stmt;
 		try{
 			 stmt = cn.createStatement();
 			 if(patentDate!=null)
-				 stmt.executeUpdate("INSERT INTO medicament (nom,idForme,dateBrevet,idEffet) VALUES ('"+name+"',"+idForm+",'"+DatesConverter.dateToStringUS(patentDate)+"',"+idEffet+")");
+				 stmt.executeUpdate("INSERT INTO medicament (nom,idForme,dateBrevet) VALUES ('"+name+"',"+idForm+",'"+DatesConverter.dateToStringUS(patentDate)+"')");
 			 else
-				 stmt.executeUpdate("INSERT INTO medicament (nom,idForme,dateBrevet,idEffet) VALUES ('"+name+"',"+idForm+",null,"+idEffet+")");
+				 stmt.executeUpdate("INSERT INTO medicament (nom,idForme,dateBrevet) VALUES ('"+name+"',"+idForm+",null)");
 		}catch (SQLException e){
 			throw e;
 		}
@@ -194,13 +194,12 @@ public abstract class Persistence {
 	 * @param patentDate la nouvelle date d'obtention du brevet du médicament à modifier
 	 * @throws SQLException l'exception SQL levée
 	 */
-	public static void updateMedicine(String name, int idForm, GregorianCalendar patentDate, int idEffect) throws SQLException {
+	public static void updateMedicine(String name, int idForm, GregorianCalendar patentDate) throws SQLException {
 		Connection cn = Persistence.connection();
 		Statement stmt;
 		try{
 			 stmt = cn.createStatement();
 			 stmt.executeUpdate("UPDATE medicament SET idForme="+idForm+" WHERE nom='"+name+"'");
-			 stmt.executeUpdate("UPDATE medicament SET idEffet="+idEffect+" WHERE nom='"+name+"'");
 			 if(patentDate!=null)
 				 stmt.executeUpdate("UPDATE medicament SET dateBrevet='"+DatesConverter.dateToStringUS(patentDate)+"' WHERE nom='"+name+"'");
 		}catch (SQLException e){

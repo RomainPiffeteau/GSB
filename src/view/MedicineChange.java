@@ -7,8 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.TableModel;
 
 import controller.Ctrl;
+import model.MyTableModel;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -62,7 +65,7 @@ public class MedicineChange extends JDialog implements MyView{
 	 * @param medicine le détail du médicament à modifier
 	 * @throws SQLException 
 	 */
-	public MedicineChange(String[] forms, String[] medicine, String[] effects) throws SQLException {
+	public MedicineChange(String[] forms, String[] medicine, String[][] effects) throws SQLException {
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 429);
@@ -88,7 +91,7 @@ public class MedicineChange extends JDialog implements MyView{
 		lblForme.setBounds(63, 107, 70, 14);
 		contentPanel.add(lblForme);
 		
-		cbxFormes = new JComboBox<String>(/*forms*/);
+		cbxFormes = new JComboBox<String>(forms);
 		cbxFormes.setBounds(140, 104, 192, 20);
 		contentPanel.add(cbxFormes);
 		cbxFormes.setSelectedItem(medicine[1]);
@@ -107,7 +110,8 @@ public class MedicineChange extends JDialog implements MyView{
 		table = new JTable();
 		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
-		this.setJTable();
+		TableModel myData = new MyTableModel();
+		table.setModel(myData);
 		
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
@@ -132,16 +136,6 @@ public class MedicineChange extends JDialog implements MyView{
 				buttonPane.add(btnAnnuler);
 			}
 		}
-	}
-	
-	/**
-	 * Récupérer le tableau des liens mediceffet et le mettre dans la JTable
-	 * @throws SQLException 
-	 * 
-	 */
-	private void setJTable() throws SQLException{
-		String[][] mediceffet = Ctrl.getMedicEffets();
-		
 	}
 
 

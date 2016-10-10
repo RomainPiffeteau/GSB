@@ -25,20 +25,18 @@ public class Medicine {
 	 */
 	public static ArrayList<Medicine> allTheMedicines = new ArrayList<Medicine>();
 	
-	private Effect itsEffect;
-	
 	/**
 	 * Construcuteur de la classe Medicament
 	 * @param name nom du nouveau médicament
 	 * @param itsForm forme pharmaceutique du nouveau médicament
 	 * @param patentDate date d'obtention du brevet du nouveau médicament
 	 */
-	public Medicine(String name, Form itsForm, GregorianCalendar patentDate, Effect itsEffect) {
+	public Medicine(String name, Form itsForm, GregorianCalendar patentDate) {
 		super();
 		this.name = name;
 		this.itsForm = itsForm;
 		this.patentDate = patentDate;
-		this.itsEffect = itsEffect;
+	
 		allTheMedicines.add(this);
 	}
 
@@ -97,13 +95,7 @@ public class Medicine {
 		this.patentDate = patentDate;
 	}
 	
-	public Effect getItsEffect(){
-		return itsEffect;
-	}
 	
-	public void setItsEffect(Effect e){
-		this.itsEffect = e;
-	}
 
 	
 }
