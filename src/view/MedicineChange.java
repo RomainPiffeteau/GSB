@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableModel;
 
 import controller.Ctrl;
+import model.MyTableModel;
+
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
@@ -89,7 +91,7 @@ public class MedicineChange extends JDialog implements MyView{
 		lblForme.setBounds(63, 107, 70, 14);
 		contentPanel.add(lblForme);
 		
-		cbxFormes = new JComboBox<String>(/*forms*/);
+		cbxFormes = new JComboBox<String>(forms);
 		cbxFormes.setBounds(140, 104, 192, 20);
 		contentPanel.add(cbxFormes);
 		cbxFormes.setSelectedItem(medicine[1]);
@@ -108,7 +110,8 @@ public class MedicineChange extends JDialog implements MyView{
 		table = new JTable();
 		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
-		table.setModel(new TableModel());
+		TableModel myData = new MyTableModel();
+		table.setModel(myData);
 		
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
