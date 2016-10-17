@@ -4,16 +4,24 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 import controller.Ctrl;
+import library.Persistence;
+import model.Effect;
+import model.Medicine;
 import model.MyTableModel;
 
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -35,6 +43,7 @@ public class MedicineChange extends JDialog implements MyView{
 	private static JComboBox<String> cbxFormes;
 	private static JTextField txtBrevet;
 	private JTable table;
+	private static Medicine medicament;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
 	 * @return le contenu du champ texte nom
@@ -108,10 +117,12 @@ public class MedicineChange extends JDialog implements MyView{
 		txtBrevet.setText(medicine[2]);
 		
 		table = new JTable();
+		this.setJTable();
 		table.setBounds(10, 157, 422, 201);
 		contentPanel.add(table);
-		TableModel myData = new MyTableModel();
-		table.setModel(myData);
+		
+		/*TableModel myData = new MyTableModel();
+		table.setModel(myData);*/
 		
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
@@ -138,7 +149,38 @@ public class MedicineChange extends JDialog implements MyView{
 		}
 	}
 
-
+	public void setJTable()
+	{
+		ArrayList<Effect> tousLesEffets = new ArrayList<Effect>(); 
+		tousLesEffets = Effect.allTheEffects;
+		String col[] = {"Description","Grade",""};
+		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+		tableModel.addRow(col);
+		for(int i = 0; i<tousLesEffets.size();i++)
+		{
+			JCheckBox CB = new JCheckBox();
+			Object[] test;
+			test = new Object[]{tousLesEffets.get(i).getName(),String.valueOf(tousLesEffets.get(i).getGrade()),CB};
+			tableModel.addRow(test);
+		}
+		
+		table = new JTable(tableModel);
+	}
+	
+	public static int[] getMedicEffects()
+	{
+		int[] listeDesEffets = new int[2];
+		try {
+			int medicId = Persistence.getIdFromMedic(medicament.getName());
+			listeDesEffets[0] = medicId;
+			listeDesEffets[1] = 2;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeDesEffets;
+	}
+	
 	@Override
 	public void assignListener(Ctrl ctrl) {
 		this.btnValider.setActionCommand("MedicineChange_valider");

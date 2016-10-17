@@ -215,7 +215,7 @@ public abstract class Persistence {
 	 * @param effets tableau qui contient l'id du médicament puis la liste des effets
 	 * @throws SQLException l'exception SQL levée
 	 */
-	public static void updateMedicEffects(String[] effects) throws SQLException{
+	public static void updateMedicEffects(int[] effects) throws SQLException{
 		Connection cn = Persistence.connection();
 		Statement stmt;
 		try{

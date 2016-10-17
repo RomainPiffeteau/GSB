@@ -205,7 +205,7 @@ public class Ctrl implements ActionListener, MouseListener{
 				String nomF = MedicineChange.getTxtForm();
 				Form forme = Form.getFormByName(nomF);
 				String dateB = MedicineChange.getTxtPatentDate();
-				String[] effects = MedicineChange.getMedicEffects();
+				int[] effects = MedicineChange.getMedicEffects();
 				//Effect effet = Effect.getEffectByName(nomEffet);
 				//Récupération de l'objet Medicine à modifier
 				Medicine med = Medicine.getMedicineByName(nom);
