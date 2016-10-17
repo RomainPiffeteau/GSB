@@ -205,8 +205,8 @@ public class Ctrl implements ActionListener, MouseListener{
 				String nomF = MedicineChange.getTxtForm();
 				Form forme = Form.getFormByName(nomF);
 				String dateB = MedicineChange.getTxtPatentDate();
-				/*String nomEffet = MedicineChange.getTxtEffet();
-				Effect effet = Effect.getEffectByName(nomEffet);*/
+				String[] effects = MedicineChange.getMedicEffects();
+				//Effect effet = Effect.getEffectByName(nomEffet);
 				//Récupération de l'objet Medicine à modifier
 				Medicine med = Medicine.getMedicineByName(nom);
 				//Modification de celui-ci à travers les setteurs
@@ -216,6 +216,7 @@ public class Ctrl implements ActionListener, MouseListener{
 				//UPDATE dans la BD
 				try {
 					Persistence.updateMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate());
+					Persistence.updateMedicEffects(effects);
 					//Mise à jour de la jtable
 					String[][] dataTable = this.medicinesTable();
 					String[] dataColumns = {"Nom","Forme","Brevet"};

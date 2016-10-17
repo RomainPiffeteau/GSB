@@ -209,4 +209,92 @@ public abstract class Persistence {
 			Persistence.closeConnection(cn);
 		}
 	}
+	
+	/**
+	 * Méthode d'UPDATE des effets pour un médicament
+	 * @param effets tableau qui contient l'id du médicament puis la liste des effets
+	 * @throws SQLException l'exception SQL levée
+	 */
+	public static void updateMedicEffects(String[] effects) throws SQLException{
+		Connection cn = Persistence.connection();
+		Statement stmt;
+		try{
+			 stmt = cn.createStatement();
+			 stmt.executeUpdate("DELETE FROM mediceffet WHERE idMedic="+effects[0]);
+			 for(int i = 1; i<effects.length; i++)
+				 stmt.executeUpdate("INSERT INTO mediceffet (idMedic,idEffet) VALUES ("+effects[0]+","+effects[i]+");");
+		}catch (SQLException e){
+			throw e;
+		}
+		finally{
+			Persistence.closeConnection(cn);
+		}
+	}
+	
+	/**
+	 * Charger les effets d'un médicament précis
+	 * @param idMedic l'identifiant du médicament
+	 * @return String[] liste des effets correspondants
+	 * @throws SQLException 
+	 */
+	public static int[] loadEffectsFromMedic(int idMedic) throws SQLException{
+		//Déclaration des variables
+		Connection cn = Persistence.connection();
+		Statement stmt; 
+		ResultSet rs = null;
+		int loop;
+		int[] effects = null;
+		
+	    try 
+	    {
+	    	stmt= cn.createStatement();
+	    	//Définition de la requete pour construire le jeu d'enregistrement
+	    	rs = stmt.executeQuery("SELECT count(*) FROM "+idMedic);
+			//Récupération du nombre de lignes du jeu d'enregistrement
+	    	rs.next();
+			effects = new int[rs.getInt(1)];
+	    	//Définition de la requete pour construire le jeu d'enregistrement
+	    	rs = stmt.executeQuery("SELECT * FROM mediceffet WHERE idMedic="+idMedic);
+			//Parcours du jeu d'enregistrement
+			loop = 0;
+	        while (rs.next()) 
+	        {
+	        	effects[loop] = rs.getInt(1);
+	        	loop++;
+	        }
+	        
+		} catch (SQLException e) 
+		{
+			throw e;
+		}
+	    finally{
+	    	Persistence.closeConnection(cn);
+	    }
+	    return effects;
+	}
+	
+	public static int getIdFromMedic(String medicName) throws SQLException{
+		//Déclaration des variables
+		Connection cn = Persistence.connection();
+		Statement stmt; 
+		ResultSet rs = null;
+		int medicId;
+		
+	    try 
+	    {
+	    	stmt= cn.createStatement();
+	    	//Définition de la requete pour construire le jeu d'enregistrement
+	    	rs = stmt.executeQuery("SELECT identifiant FROM medicament WHERE nom like '"+medicName+"'");
+			//Parcours du jeu d'enregistrement
+	        medicId = rs.getInt(1);
+	        
+		} catch (SQLException e) 
+		{
+			throw e;
+		}
+	    finally{
+	    	Persistence.closeConnection(cn);
+	    }
+		return medicId;
+	}
 }
