@@ -286,6 +286,7 @@ public abstract class Persistence {
 	    	//Définition de la requete pour construire le jeu d'enregistrement
 	    	rs = stmt.executeQuery("SELECT identifiant FROM medicament WHERE nom like '"+medicName+"'");
 			//Parcours du jeu d'enregistrement
+	    	rs.next();
 	        medicId = rs.getInt(1);
 	        
 		} catch (SQLException e) 

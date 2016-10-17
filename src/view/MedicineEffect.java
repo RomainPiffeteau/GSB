@@ -74,11 +74,7 @@ public MedicineEffect()
 	buttonCreation = new JButton("Cr\u00E9er");
 	buttonCreation.setBounds(140, 228, 89, 23);
 	buttonCreation = new JButton("Cr\u00E9er");
-<<<<<<< HEAD
-	buttonCreation.setBounds(243, 228, 89, 23);
-=======
 	buttonCreation.setBounds(239, 228, 89, 23);
->>>>>>> c12e47403d010434f734605001a09dac1b7309b8
 	fenetreEffet.add(buttonCreation);
 	
 	un = new JRadioButton("1");
@@ -91,11 +87,7 @@ public MedicineEffect()
 	fenetreEffet.add(buttonFermer);
 	
 	JButton buttonAnnuler = new JButton("Annuler");
-<<<<<<< HEAD
-	buttonAnnuler.setBounds(144, 228, 89, 23);
-=======
 	buttonAnnuler.setBounds(140, 228, 89, 23);
->>>>>>> c12e47403d010434f734605001a09dac1b7309b8
 	fenetreEffet.add(buttonAnnuler);
 	
 	JRadioButtonMenuItem rbGroup = new JRadioButtonMenuItem("");
@@ -147,7 +139,7 @@ public static int getGrade(){
 
 @Override
 public void assignListener(Ctrl ctrl) {
-	this.buttonCreation.setActionCommand("MedicineEffect_valider");
-	this.buttonCreation.addActionListener(ctrl);
+	MedicineEffect.buttonCreation.setActionCommand("MedicineEffect_valider");
+	MedicineEffect.buttonCreation.addActionListener(ctrl);
 }
 }

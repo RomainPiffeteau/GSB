@@ -44,6 +44,8 @@ public class MedicineChange extends JDialog implements MyView{
 	private static JTextField txtBrevet;
 	private JTable table;
 	private static Medicine medicament;
+	private String[][] effects;
+	private String nomMedic;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
 	 * @return le contenu du champ texte nom
@@ -75,6 +77,8 @@ public class MedicineChange extends JDialog implements MyView{
 	 * @throws SQLException 
 	 */
 	public MedicineChange(String[] forms, String[] medicine, String[][] effects) throws SQLException {
+		this.effects = effects;
+		nomMedic = medicine[0];
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 429);
@@ -153,18 +157,64 @@ public class MedicineChange extends JDialog implements MyView{
 	{
 		ArrayList<Effect> tousLesEffets = new ArrayList<Effect>(); 
 		tousLesEffets = Effect.allTheEffects;
-		String col[] = {"Description","Grade",""};
-		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-		tableModel.addRow(col);
-		for(int i = 0; i<tousLesEffets.size();i++)
-		{
-			JCheckBox CB = new JCheckBox();
-			Object[] test;
-			test = new Object[]{tousLesEffets.get(i).getName(),String.valueOf(tousLesEffets.get(i).getGrade()),CB};
-			tableModel.addRow(test);
+		Object[] col = {"Description","Grade",""};
+		Object[][] test = new Object[tousLesEffets.size()][3];
+		try {
+			for(int i = 1; i<tousLesEffets.size();i++)
+			{
+				test[i-1][0] = tousLesEffets.get(i).getName();
+				test[i-1][1] = String.valueOf(tousLesEffets.get(i).getGrade());
+				test[i-1][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
+				System.out.println(i);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		DefaultTableModel tableModel = new DefaultTableModel(test, col);
+		table = new JTable(tableModel){
+
+            private static final long serialVersionUID = 1L;
+
+            /*@Override
+            public Class getColumnClass(int column) {
+            return getValueAt(0, column).getClass();
+            }*/
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    default:
+                        return Boolean.class;
+                }
+            }
+        };;
 		
-		table = new JTable(tableModel);
+		
+		
+		
+	}
+	
+	private boolean compareEffects(int idEffect, int idMedic)
+	{
+		boolean find = false;
+		for(int i =0; i<this.effects.length;i++)
+		{
+			if(idMedic == Integer.parseInt(this.effects[i][0]))
+			{
+				for(int j = 0;j<this.effects[i].length;j++)
+				{
+					if(idEffect == Integer.parseInt(this.effects[i][j]))
+					{
+						find = true;
+					}
+				}
+			}
+		}
+		return find;
 	}
 	
 	public static int[] getMedicEffects()
@@ -179,6 +229,11 @@ public class MedicineChange extends JDialog implements MyView{
 			e.printStackTrace();
 		}
 		return listeDesEffets;
+		
+		
+		
+		
+		
 	}
 	
 	@Override
