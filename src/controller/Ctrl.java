@@ -172,8 +172,8 @@ public class Ctrl implements ActionListener, MouseListener{
 					String nomF = MedicineAdd.getTxtForm();
 					Form forme = Form.getFormByName(nomF);
 					String dateB = MedicineAdd.getTxtPatentDate();
-					String nomEffet = MedicineAdd.getTxtEffect();
-					Effect effet = Effect.getEffectByName(nomEffet);
+				//	String nomEffet = MedicineAdd.getTxtEffect();
+				//	Effect effet = Effect.getEffectByName(nomEffet);
 					//Création du nouvel objet Medicine
 					Medicine med = new Medicine(nom,forme,DatesConverter.USStringToDate(dateB));
 					//INSERT dans la BD

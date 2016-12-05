@@ -44,7 +44,7 @@ public class MedicineChange extends JDialog implements MyView{
 	private static JTextField txtBrevet;
 	private JTable table;
 	private static Medicine medicament;
-	private String[][] effects;
+	private static String[][] effects;
 	private String nomMedic;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
@@ -79,6 +79,7 @@ public class MedicineChange extends JDialog implements MyView{
 	public MedicineChange(String[] forms, String[] medicine, String[][] effects) throws SQLException {
 		this.effects = effects;
 		nomMedic = medicine[0];
+		medicament = Medicine.getMedicineByName(nomMedic);
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 429);
@@ -165,7 +166,7 @@ public class MedicineChange extends JDialog implements MyView{
 				test[i-1][0] = tousLesEffets.get(i).getName();
 				test[i-1][1] = String.valueOf(tousLesEffets.get(i).getGrade());
 				test[i-1][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
-				System.out.println(i);
+				// System.out.println(i);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -198,16 +199,17 @@ public class MedicineChange extends JDialog implements MyView{
 		
 	}
 	
-	private boolean compareEffects(int idEffect, int idMedic)
+	
+	private static boolean compareEffects(int idEffect, int idMedic)
 	{
 		boolean find = false;
-		for(int i =0; i<this.effects.length;i++)
+		for(int i =0; i<effects.length;i++)
 		{
-			if(idMedic == Integer.parseInt(this.effects[i][0]))
+			if(idMedic == Integer.parseInt(effects[i][0]))
 			{
-				for(int j = 0;j<this.effects[i].length;j++)
+				for(int j = 0;j<effects[i].length;j++)
 				{
-					if(idEffect == Integer.parseInt(this.effects[i][j]))
+					if(idEffect == Integer.parseInt(effects[i][j]))
 					{
 						find = true;
 					}
@@ -217,7 +219,7 @@ public class MedicineChange extends JDialog implements MyView{
 		return find;
 	}
 	
-	public static int[] getMedicEffects()
+	/*public static int[] getMedicEffects()
 	{
 		int[] listeDesEffets = new int[2];
 		try {
@@ -230,12 +232,39 @@ public class MedicineChange extends JDialog implements MyView{
 		}
 		return listeDesEffets;
 		
-		
-		
-		
-		
-	}
+	}*/
 	
+	
+	public static int[] getMedicEffects()
+	{
+		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
+		try{
+		//	int medicId = Persistence.getIdFromMedic(medicament.getName());
+		// Travailler avec la JTable, vérifier si la dernière colonne de la JTable est cochée et non depuis la BDD 
+			listeDesEffets[0] = medicId;
+			int j=1;
+			for(int i = 1;i<Effect.allTheEffects.size();i++)
+			{
+
+				if(compareEffects(Effect.allTheEffects.get(i).getId(), medicId) == true)
+				{
+					
+					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();
+					j++;
+				}
+			
+		}
+			
+			
+			for(int i=0;i<listeDesEffets.length;i++){
+				System.out.println(listeDesEffets[i]);
+			}
+		}
+		catch(SQLException e){
+				e.printStackTrace();
+			}
+			return listeDesEffets;
+	}
 	@Override
 	public void assignListener(Ctrl ctrl) {
 		this.btnValider.setActionCommand("MedicineChange_valider");
