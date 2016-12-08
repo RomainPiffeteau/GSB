@@ -221,9 +221,9 @@ public abstract class Persistence {
 		try{
 			 stmt = cn.createStatement();
 			 stmt.executeUpdate("DELETE FROM mediceffet WHERE idMedic="+effects[0]);
-			 for(int i = 1; i<effects.length; i++){
+			for(int i = 1; i<effects.length; i++){
 				 if(effects[i]!=0)
-					 stmt.executeUpdate("INSERT INTO mediceffet (idMedic,idEffet) VALUES ("+effects[0]+","+effects[i]+");");
+				 { stmt.executeUpdate("INSERT INTO mediceffet (idMedic,idEffet) VALUES ("+effects[0]+","+effects[i]+")"); }
 			 }
 		}catch (SQLException e){
 			throw e;

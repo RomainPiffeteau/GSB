@@ -42,7 +42,7 @@ public class MedicineChange extends JDialog implements MyView{
 	private static JTextField txtNom;
 	private static JComboBox<String> cbxFormes;
 	private static JTextField txtBrevet;
-	private JTable table;
+	private static JTable table;
 	private static Medicine medicament;
 	private static String[][] effects;
 	private String nomMedic;
@@ -161,6 +161,7 @@ public class MedicineChange extends JDialog implements MyView{
 		Object[] col = {"Description","Grade",""};
 		Object[][] test = new Object[tousLesEffets.size()][3];
 		try {
+			System.out.println("######################"+tousLesEffets.size());
 			for(int i = 1; i<tousLesEffets.size();i++)
 			{
 				test[i-1][0] = tousLesEffets.get(i).getName();
@@ -219,6 +220,16 @@ public class MedicineChange extends JDialog implements MyView{
 		return find;
 	}
 	
+private static boolean[] effectExist()
+	{
+		boolean[] estCoche = new boolean[table.getRowCount()-1];
+		for(int i = 0;i<table.getRowCount()-1;i++)
+		{
+			estCoche[i] = (Boolean)table.getValueAt(i, 2);
+		}
+		return estCoche;
+	}
+	
 	/*public static int[] getMedicEffects()
 	{
 		int[] listeDesEffets = new int[2];
@@ -239,21 +250,23 @@ public class MedicineChange extends JDialog implements MyView{
 	{
 		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
 		try{
-		//	int medicId = Persistence.getIdFromMedic(medicament.getName());
+			int medicId = Persistence.getIdFromMedic(medicament.getName());
 		// Travailler avec la JTable, vérifier si la dernière colonne de la JTable est cochée et non depuis la BDD 
+			
 			listeDesEffets[0] = medicId;
+			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
+			effetExiste = effectExist();
 			int j=1;
-			for(int i = 1;i<Effect.allTheEffects.size();i++)
+			for(int i = 0;i<table.getRowCount()-1;i++)
 			{
 
-				if(compareEffects(Effect.allTheEffects.get(i).getId(), medicId) == true)
+				if(effetExiste[i] == true)
 				{
-					
 					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();
 					j++;
 				}
 			
-		}
+			}
 			
 			
 			for(int i=0;i<listeDesEffets.length;i++){
