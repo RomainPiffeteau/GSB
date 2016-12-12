@@ -61,7 +61,7 @@ INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('EPI
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('FLOLAN',NULL,'16/1/2003',NULL,4);
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('HYCAMTIN',NULL,'5/10/2000',NULL,4);
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('ESKAZOLE','7/2/2002','4/10/2008',NULL,1);
-INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('VENTOLINE',NULL,'5/2/2013',NULL,3,1);
+INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('VENTOLINE',NULL,'5/2/2013',NULL,1);
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('ZIAGEN','3/3/2001','15/10/2006',NULL,1);
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('ZEFFIX',NULL,'11/2/2004',NULL,1);
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('TELZIR','15/3/2009',NULL,NULL,1);
@@ -72,6 +72,13 @@ INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('TAF
 INSERT INTO medicament (nom,dateBrevet,dateAMM,dateRetrait,idForme) VALUES ('MEDIATOR','28/7/1967','12/1/1971',NULL,1);
 ----------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO effet (grade,description) VALUES (1,'Pas d''effet');
+INSERT INTO effet (grade,description) VALUES (1,'Maux de tête');
+INSERT INTO effet (grade,description) VALUES (2,'Douleurs d''estomac');
+INSERT INTO effet (grade,description) VALUES (2,'Brûlures d''estomac');
+INSERT INTO effet (grade,description) VALUES (4,'Perte olfactive');
+INSERT INTO effet (grade,description) VALUES (3,'Nausées');
+INSERT INTO effet (grade,description) VALUES (3,'Vomissements');
+INSERT INTO effet (grade,description) VALUES (2,'Somnolences');
 GO
 ----------------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO mediceffet (idMedic,idEffet) VALUES (19,2);

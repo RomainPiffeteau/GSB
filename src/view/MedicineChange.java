@@ -118,7 +118,7 @@ public class MedicineChange extends JDialog implements MyView{
 		
 		table = new JTable();
 		this.setJTable();
-		table.setBounds(10, 157, 422, 201);
+		table.setBounds(10, 157, 414, 201);
 		contentPanel.add(table);
 		
 		/*TableModel myData = new MyTableModel();
@@ -149,6 +149,9 @@ public class MedicineChange extends JDialog implements MyView{
 		}
 	}
 
+	/**
+	 * Méthode permettant de créer le tableau des effets et des cases à cocher
+	 */
 	public void setJTable()
 	{
 		ArrayList<Effect> tousLesEffets = new ArrayList<Effect>(); 
@@ -167,18 +170,39 @@ public class MedicineChange extends JDialog implements MyView{
 		table = new JTable(tableModel);
 	}
 	
+	/**
+	 * Méthode retournant l'id du médicament en première position et les id de chaque effet cochés par case suivante
+	 * @return tableau de int
+	 */
 	public static int[] getMedicEffects()
 	{
-		int[] listeDesEffets = new int[2];
+		int[] listeDesEffets;
+		if(getNumberCheckedEffects()==0){
+			listeDesEffets = new int[2];
+			listeDesEffets[1] = 1;
+		} else
+			listeDesEffets = new int[getNumberCheckedEffects()+1];
 		try {
 			int medicId = Persistence.getIdFromMedic(medicament.getName());
 			listeDesEffets[0] = medicId;
-			listeDesEffets[1] = 2;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(getNumberCheckedEffects()>0){
+			for(int i=1;i<listeDesEffets.length;i++){
+				//Mettre dans le tableau les id des cases cochées
+			}
+		}
 		return listeDesEffets;
+	}
+	
+	/**
+	 * Méthode retournant le nombre d'effets cochés
+	 * @return int nombre d'effets cochés
+	 */
+	private static int getNumberCheckedEffects(){
+		//récupérer le nombre de cases cochées
+		return 0;
 	}
 	
 	@Override

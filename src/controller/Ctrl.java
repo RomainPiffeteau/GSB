@@ -37,8 +37,7 @@ public class Ctrl implements ActionListener, MouseListener{
 		try {
 			dataForm = Persistence.load("forme");
 		} catch (SQLException e) {
-			String message = "Erreur lors de l'échange avec la base de données. L'application a rencontrée l'erreur : "+e.getMessage();
-			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,e.getMessage(),"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 		}
 		for(int i=0;i<dataForm.length;i++){
 			new Form(Integer.parseInt(dataForm[i][0]),dataForm[i][1]);
