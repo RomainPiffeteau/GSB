@@ -52,11 +52,12 @@ public class Ctrl implements ActionListener, MouseListener{
 			JOptionPane.showMessageDialog(null,message,"Erreur SQL",JOptionPane.ERROR_MESSAGE);
 		}
 		for(int i=0;i<dataEffect.length;i++){
+			System.out.println(dataEffect[i][2]);
 			new Effect(Integer.parseInt(dataEffect[i][0]),Integer.parseInt(dataEffect[i][1]),dataEffect[i][2]);
 		}
-		if(Effect.getEffectById(0)==null)
-			Effect.allTheEffects.add(new Effect(0, 1, "Pas d'effet"));
-		
+//		if(Effect.getEffectById(0)==null)
+//			Effect.allTheEffects.add(new Effect(0, 1, "Pas d'effet"));
+//		
 		//Création des objets Medicine
 		String[][] dataMed = null;
 		try {
@@ -171,8 +172,8 @@ public class Ctrl implements ActionListener, MouseListener{
 					String nomF = MedicineAdd.getTxtForm();
 					Form forme = Form.getFormByName(nomF);
 					String dateB = MedicineAdd.getTxtPatentDate();
-					String nomEffet = MedicineAdd.getTxtEffect();
-					Effect effet = Effect.getEffectByName(nomEffet);
+				//	String nomEffet = MedicineAdd.getTxtEffect();
+				//	Effect effet = Effect.getEffectByName(nomEffet);
 					//Création du nouvel objet Medicine
 					Medicine med = new Medicine(nom,forme,DatesConverter.USStringToDate(dateB));
 					//INSERT dans la BD

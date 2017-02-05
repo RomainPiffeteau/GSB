@@ -59,6 +59,11 @@ public MedicineEffect()
 	lblNiveau.setBounds(83, 95, 50, 14);
 	fenetreEffet.add(lblNiveau);
 	
+	un = new JRadioButton("1");
+	un.setSelected(true);
+	un.setBounds(199, 91, 109, 23);
+	fenetreEffet.add(un);
+	
 	deux = new JRadioButton("2");
 	deux.setBounds(199, 117, 109, 23);
 	fenetreEffet.add(deux);
@@ -76,11 +81,6 @@ public MedicineEffect()
 	buttonCreation = new JButton("Cr\u00E9er");
 	buttonCreation.setBounds(239, 228, 89, 23);
 	fenetreEffet.add(buttonCreation);
-	
-	un = new JRadioButton("1");
-	un.setSelected(true);
-	un.setBounds(199, 91, 109, 23);
-	fenetreEffet.add(un);
 	
 	JButton buttonFermer = new JButton("Fermer");
 	buttonFermer.setBounds(338, 228, 89, 23);
@@ -139,7 +139,7 @@ public static int getGrade(){
 
 @Override
 public void assignListener(Ctrl ctrl) {
-	this.buttonCreation.setActionCommand("MedicineEffect_valider");
-	this.buttonCreation.addActionListener(ctrl);
+	MedicineEffect.buttonCreation.setActionCommand("MedicineEffect_valider");
+	MedicineEffect.buttonCreation.addActionListener(ctrl);
 }
 }

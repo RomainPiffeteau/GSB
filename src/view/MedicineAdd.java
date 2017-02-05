@@ -30,7 +30,7 @@ public class MedicineAdd extends JDialog implements MyView{
 	private static JTextField txtNom;
 	private static JComboBox<String> cbxFormes;
 	private static JTextField txtBrevet;
-	private static JComboBox<String> cbxEffects;
+//	private static JComboBox<String> cbxEffects;
 
 	/**
 	 * Méthode statique permettant de réinitialiser les champs
@@ -55,11 +55,11 @@ public class MedicineAdd extends JDialog implements MyView{
 	public static String getTxtForm(){
 		return (String) cbxFormes.getSelectedItem();
 	}
-	
+/*	
 	public static String getTxtEffect(){
 		return (String) cbxEffects.getSelectedItem();
 	}
-	
+	*/
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte date brevet
 	 * @return le contenu du champ texte date brevet
@@ -104,7 +104,7 @@ public class MedicineAdd extends JDialog implements MyView{
 		lblForme.setBounds(63, 128, 70, 14);
 		contentPanel.add(lblForme);
 		
-		cbxFormes = new JComboBox<String>();
+		cbxFormes = new JComboBox<String>(forms);
 		cbxFormes.setBounds(140, 125, 192, 20);
 		contentPanel.add(cbxFormes);
 		

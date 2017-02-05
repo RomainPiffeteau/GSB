@@ -42,8 +42,10 @@ public class MedicineChange extends JDialog implements MyView{
 	private static JTextField txtNom;
 	private static JComboBox<String> cbxFormes;
 	private static JTextField txtBrevet;
-	private JTable table;
+	private static JTable table;
 	private static Medicine medicament;
+	private static String[][] effects;
+	private String nomMedic;
 	/**
 	 * Méthode statique permettant d'obtenir le contenu du champ texte nom
 	 * @return le contenu du champ texte nom
@@ -75,6 +77,9 @@ public class MedicineChange extends JDialog implements MyView{
 	 * @throws SQLException 
 	 */
 	public MedicineChange(String[] forms, String[] medicine, String[][] effects) throws SQLException {
+		this.effects = effects;
+		nomMedic = medicine[0];
+		medicament = Medicine.getMedicineByName(nomMedic);
 		setTitle("M\u00E9dicament - Modifier");
 		setModal(true);
 		setBounds(100, 100, 450, 429);
@@ -156,25 +161,75 @@ public class MedicineChange extends JDialog implements MyView{
 	{
 		ArrayList<Effect> tousLesEffets = new ArrayList<Effect>(); 
 		tousLesEffets = Effect.allTheEffects;
-		String col[] = {"Description","Grade",""};
-		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-		tableModel.addRow(col);
-		for(int i = 0; i<tousLesEffets.size();i++)
-		{
-			JCheckBox CB = new JCheckBox();
-			Object[] test;
-			test = new Object[]{tousLesEffets.get(i).getName(),String.valueOf(tousLesEffets.get(i).getGrade()),CB};
-			tableModel.addRow(test);
+		Object[] col = {"Description","Grade",""};
+		Object[][] test = new Object[tousLesEffets.size()][3];
+		try {
+			System.out.println("######################"+tousLesEffets.size());
+			for(int i = 1; i<tousLesEffets.size();i++)
+			{
+				test[i-1][0] = tousLesEffets.get(i).getName();
+				test[i-1][1] = String.valueOf(tousLesEffets.get(i).getGrade());
+				test[i-1][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
+				// System.out.println(i);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		DefaultTableModel tableModel = new DefaultTableModel(test, col);
+		table = new JTable(tableModel){
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return String.class;
+                    case 1:
+                        return String.class;
+                    default:
+                        return Boolean.class;
+                }
+            }
+        };
 		
-		table = new JTable(tableModel);
+		
+		
+		
 	}
 	
-	/**
-	 * Méthode retournant l'id du médicament en première position et les id de chaque effet cochés par case suivante
-	 * @return tableau de int
-	 */
-	public static int[] getMedicEffects()
+	
+	private static boolean compareEffects(int idEffect, int idMedic)
+	{
+		boolean find = false;
+		for(int i =0; i<effects.length;i++)
+		{
+			if(idMedic == Integer.parseInt(effects[i][0]))
+			{
+				for(int j = 0;j<effects[i].length;j++)
+				{
+					if(idEffect == Integer.parseInt(effects[i][j]))
+					{
+						find = true;
+					}
+				}
+			}
+		}
+		return find;
+	}
+	
+	private static boolean[] effectExist()
+	{
+		boolean[] estCoche = new boolean[table.getRowCount()-1];
+		for(int i = 0;i<table.getRowCount()-1;i++)
+		{
+			estCoche[i] = (Boolean)table.getValueAt(i, 2);
+		}
+		return estCoche;
+	}
+	
+	/*public static int[] getMedicEffects()
 	{
 		int[] listeDesEffets;
 		if(getNumberCheckedEffects()==0){
@@ -194,17 +249,42 @@ public class MedicineChange extends JDialog implements MyView{
 			}
 		}
 		return listeDesEffets;
-	}
+		
+	}*/
 	
-	/**
-	 * Méthode retournant le nombre d'effets cochés
-	 * @return int nombre d'effets cochés
-	 */
-	private static int getNumberCheckedEffects(){
-		//récupérer le nombre de cases cochées
-		return 0;
-	}
 	
+	public static int[] getMedicEffects()
+	{
+		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
+		try{
+			int medicId = Persistence.getIdFromMedic(medicament.getName());
+		// Travailler avec la JTable, vérifier si la dernière colonne de la JTable est cochée et non depuis la BDD 
+			
+			listeDesEffets[0] = medicId;
+			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
+			effetExiste = effectExist();
+			int j=1;
+			for(int i = 0;i<table.getRowCount()-1;i++)
+			{
+
+				if(effetExiste[i] == true)
+				{
+					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();
+					j++;
+				}
+			
+			}
+			
+			
+			for(int i=0;i<listeDesEffets.length;i++){
+				System.out.println(listeDesEffets[i]);
+			}
+		}
+		catch(SQLException e){
+				e.printStackTrace();
+			}
+			return listeDesEffets;
+	}
 	@Override
 	public void assignListener(Ctrl ctrl) {
 		this.btnValider.setActionCommand("MedicineChange_valider");

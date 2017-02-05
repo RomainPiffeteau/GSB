@@ -13,6 +13,28 @@ import java.util.GregorianCalendar;
  *
  */
 public abstract class Persistence {
+
+	/**
+	 * Méthode de connexion à la BD
+	 * @return une connexion active sur la BD
+	 * @throws SQLException l'exception SQL levée
+	 */
+	private static Connection connection() throws SQLException{
+		String host = "192.168.222.72"; //Notre serveur du lycée
+//		String host = "127.0.0.1:3306"; //Serveur Local du lycée
+//		String host = "localhost:1434";
+		String base = "gsbjm";
+		String user = "JeanMedicament";
+		String passwd = "zouzou";
+		Connection con = null;
+		try{
+			con = DriverManager.getConnection("jdbc:sqlserver://"+host+";database="+base+";user="+user+";password="+passwd);
+		} catch (SQLException e){
+			System.out.println("Erreur connection (chaine sql: "+"jdbc:sqlserver://"+host+";database="+base+";user="+user+";password="+passwd+"): "+e.getMessage());
+			throw e;
+		}
+		return con;
+	}
 	
 	/**
 	 * Méthode d'INSERT d'un nouveau médicament
@@ -151,27 +173,6 @@ public abstract class Persistence {
 	}
 
 	/**
-	 * Méthode de connexion à la BD
-	 * @return une connexion active sur la BD
-	 * @throws SQLException l'exception SQL levée
-	 */
-	private static Connection connection() throws SQLException{
-//		String host = "192.168.222.72"; //Notre serveur du lycée
-//		String host = "127.0.0.1:3306"; //Serveur Local du lycée
-		String host = "localhost:1434";
-		String base = "gsbjm";
-		String user = "JeanMedicament";
-		String passwd = "zouzou";
-		Connection con = null;
-		try{
-			con = DriverManager.getConnection("jdbc:sqlserver://"+host+";database="+base+";user="+user+";password="+passwd);
-		} catch (SQLException e){
-			throw e;
-		}
-		return con;
-	}
-
-	/**
 	 * Méthode de clôture de connexion
 	 * @param conn la connexion à fermer
 	 * @throws SQLException l'exception SQL levée
@@ -218,8 +219,10 @@ public abstract class Persistence {
 		try{
 			 stmt = cn.createStatement();
 			 stmt.executeUpdate("DELETE FROM mediceffet WHERE idMedic="+effects[0]);
-			 for(int i = 1; i<effects.length; i++)
-				 stmt.executeUpdate("INSERT INTO mediceffet (idMedic,idEffet) VALUES ("+effects[0]+","+effects[i]+");");
+			for(int i = 1; i<effects.length; i++){
+				 if(effects[i]!=0)
+				 { stmt.executeUpdate("INSERT INTO mediceffet (idMedic,idEffet) VALUES ("+effects[0]+","+effects[i]+")"); }
+			 }
 		}catch (SQLException e){
 			throw e;
 		}
@@ -283,6 +286,7 @@ public abstract class Persistence {
 	    	//Définition de la requete pour construire le jeu d'enregistrement
 	    	rs = stmt.executeQuery("SELECT identifiant FROM medicament WHERE nom like '"+medicName+"'");
 			//Parcours du jeu d'enregistrement
+	    	rs.next();
 	        medicId = rs.getInt(1);
 	        
 		} catch (SQLException e) 
