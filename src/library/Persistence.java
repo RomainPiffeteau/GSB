@@ -199,7 +199,10 @@ public abstract class Persistence {
 			 stmt = cn.createStatement();
 			 stmt.executeUpdate("UPDATE medicament SET idForme="+idForm+" WHERE nom='"+name+"'");
 			 if(patentDate!=null)
-				 stmt.executeUpdate("UPDATE medicament SET dateBrevet='"+DatesConverter.dateToStringUS(patentDate)+"' WHERE nom='"+name+"'");
+			 {		String req = "UPDATE medicament SET dateBrevet='"+DatesConverter.dateToStringFR(patentDate)+"' WHERE nom='"+name+"'";
+			 System.out.println(req);
+				 stmt.executeUpdate(req);
+			 }
 		}catch (SQLException e){
 			throw e;
 		}

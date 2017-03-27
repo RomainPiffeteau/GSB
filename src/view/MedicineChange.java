@@ -105,7 +105,7 @@ public class MedicineChange extends JDialog implements MyView{
 		lblForme.setBounds(63, 107, 70, 14);
 		contentPanel.add(lblForme);
 		
-		cbxFormes = new JComboBox<String>(/*forms*/);
+		cbxFormes = new JComboBox<String>(forms);
 		cbxFormes.setBounds(140, 104, 192, 20);
 		contentPanel.add(cbxFormes);
 		cbxFormes.setSelectedItem(medicine[1]);
@@ -165,11 +165,11 @@ public class MedicineChange extends JDialog implements MyView{
 		Object[][] test = new Object[tousLesEffets.size()][3];
 		try {
 			System.out.println("######################"+tousLesEffets.size());
-			for(int i = 1; i<tousLesEffets.size();i++)
+			for(int i = 0; i<tousLesEffets.size();i++)
 			{
-				test[i-1][0] = tousLesEffets.get(i).getName();
-				test[i-1][1] = String.valueOf(tousLesEffets.get(i).getGrade());
-				test[i-1][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
+				test[i][0] = tousLesEffets.get(i).getName();
+				test[i][1] = String.valueOf(tousLesEffets.get(i).getGrade());
+				test[i][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
 				// System.out.println(i);
 			}
 		} catch (SQLException e) {
@@ -221,8 +221,8 @@ public class MedicineChange extends JDialog implements MyView{
 	
 	private static boolean[] effectExist()
 	{
-		boolean[] estCoche = new boolean[table.getRowCount()-1];
-		for(int i = 0;i<table.getRowCount()-1;i++)
+		boolean[] estCoche = new boolean[table.getRowCount()];
+		for(int i = 0;i<table.getRowCount();i++)
 		{
 			estCoche[i] = (Boolean)table.getValueAt(i, 2);
 		}
@@ -264,9 +264,39 @@ public class MedicineChange extends JDialog implements MyView{
 			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
 			effetExiste = effectExist();
 			int j=1;
-			for(int i = 0;i<table.getRowCount()-1;i++)
+			for(int i = 0;i<table.getRowCount();i++)
 			{
-
+				if(effetExiste[i] == true)
+				{
+					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();
+					j++;
+				}
+			
+			}
+			
+			
+			for(int i=0;i<listeDesEffets.length;i++){
+				System.out.println(listeDesEffets[i]);
+			}
+		}
+		catch(SQLException e){
+				e.printStackTrace();
+			}
+			return listeDesEffets;
+	}
+	
+	public static int[] getMedicEffects2()
+	{
+		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
+		try{
+			int medicId = Persistence.getIdFromMedic(medicament.getName());
+			
+			listeDesEffets[0] = medicId;
+			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
+			effetExiste = effectExist();
+			int j=1;
+			for(int i = 0;i<table.getRowCount();i++)
+			{
 				if(effetExiste[i] == true)
 				{
 					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();

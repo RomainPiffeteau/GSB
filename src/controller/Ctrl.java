@@ -211,10 +211,11 @@ public class Ctrl implements ActionListener, MouseListener{
 				Medicine med = Medicine.getMedicineByName(nom);
 				//Modification de celui-ci à travers les setteurs
 				med.setItsForm(forme);
-				med.setPatentDate(DatesConverter.USStringToDate(dateB));
+				med.setPatentDate(DatesConverter.FRStringToDate(dateB));
 				//med.setItsEffect(effet);
 				//UPDATE dans la BD
 				try {
+					System.out.println(MedicineChange.getMedicEffects2());
 					Persistence.updateMedicine(med.getName(),med.getItsForm().getId(),med.getPatentDate());
 					Persistence.updateMedicEffects(effects);
 					//Mise à jour de la jtable
