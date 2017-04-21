@@ -88,6 +88,10 @@ public class Effect {
 		}
 		return found;
 	}
+	/**
+	 * Permet d'obtenir l'id suivant pour la création d'un nouvel effet
+	 * @return int correspondant à l'id suivant pour l'ajout d'un nouvel effet dans la base de données
+	 */
 	
 	public static int getNextId(){
 		int id = 0;

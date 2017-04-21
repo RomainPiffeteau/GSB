@@ -181,6 +181,10 @@ public class MedicineChange extends JDialog implements MyView{
 
             private static final long serialVersionUID = 1L;
 
+            /**
+             * Méthode permettant d'indiquer les différents type de données contenus dans les colonnes 
+             * @param int indique le type de données que doit contenir la colonne passée en paramètre
+             */
             @Override
             public Class getColumnClass(int column) {
                 switch (column) {
@@ -199,7 +203,12 @@ public class MedicineChange extends JDialog implements MyView{
 		
 	}
 	
-	
+	/**
+	 * Méthode statique permettant de savoir si un médicament passé en paramètre possède un effet passé en paramètre  
+	 * @param idEffect int désignant l'id du 
+	 * @param idMedic
+	 * @return boolean indiquant si le médicament possède l'effet ou non
+	 */
 	private static boolean compareEffects(int idEffect, int idMedic)
 	{
 		boolean find = false;
@@ -219,6 +228,10 @@ public class MedicineChange extends JDialog implements MyView{
 		return find;
 	}
 	
+	/**
+	 * Méthode statique permettant de savoir si la case de l'effet est cochée ou non sur la JTable
+	 * @return boolean[] retourne un tableau de boolean précisant pour chaque effet si celui-ci est coché ou non
+	 */
 	private static boolean[] effectExist()
 	{
 		boolean[] estCoche = new boolean[table.getRowCount()];
@@ -252,7 +265,10 @@ public class MedicineChange extends JDialog implements MyView{
 		
 	}*/
 	
-	
+	/**
+	 * Méthode statique qui retourne la liste des id des effets que possède un médicament
+	 * @return tableau de int des id des effets d'un médicament
+	 */
 	public static int[] getMedicEffects()
 	{
 		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
@@ -284,7 +300,10 @@ public class MedicineChange extends JDialog implements MyView{
 			}
 			return listeDesEffets;
 	}
-	
+	/**
+	 * Donne pour l'effet
+	 * @return 
+	 */
 	public static int[] getMedicEffects2()
 	{
 		int[] listeDesEffets = new int[Effect.allTheEffects.size()];

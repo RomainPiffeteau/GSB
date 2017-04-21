@@ -276,6 +276,13 @@ public abstract class Persistence {
 	    return effects;
 	}
 	
+	/**
+	 * Donne l'identifiant d'un médicament en fonction d'un nom donné en paramètre
+	 * @param medicName spécifiant le nom du médicament dont on désire obtenir l'indentifiant
+	 * @return int correspondant à l'id d'un médicament donné en paramètre
+	 * @throws SQLException
+	 */
+	
 	public static int getIdFromMedic(String medicName) throws SQLException{
 		//Déclaration des variables
 		Connection cn = Persistence.connection();
