@@ -16,7 +16,7 @@ import controller.Ctrl;
 import library.Persistence;
 import model.Effect;
 import model.Medicine;
-import model.MyTableModel;
+
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -125,10 +125,7 @@ public class MedicineChange extends JDialog implements MyView{
 		this.setJTable();
 		table.setBounds(10, 157, 414, 201);
 		contentPanel.add(table);
-		
-		/*TableModel myData = new MyTableModel();
-		table.setModel(myData);*/
-		
+
 		JLabel lblEffets = new JLabel("Effet(s) :");
 		lblEffets.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEffets.setBounds(10, 135, 422, 14);
