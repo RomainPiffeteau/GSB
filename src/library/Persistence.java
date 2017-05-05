@@ -23,7 +23,8 @@ public abstract class Persistence {
 		String host = "192.168.222.72"; //Notre serveur du lycée
 //		String host = "127.0.0.1:3306"; //Serveur Local du lycée
 //		String host = "localhost:1434";
-		String base = "gsbjm";
+		String base = "gsbjmPiffeteau";
+//		String base = "gsbjmBouchez";
 		String user = "JeanMedicament";
 		String passwd = "zouzou";
 		Connection con = null;
