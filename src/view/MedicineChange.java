@@ -161,13 +161,11 @@ public class MedicineChange extends JDialog implements MyView{
 		Object[] col = {"Description","Grade",""};
 		Object[][] test = new Object[tousLesEffets.size()][3];
 		try {
-			System.out.println("######################"+tousLesEffets.size());
 			for(int i = 0; i<tousLesEffets.size();i++)
 			{
 				test[i][0] = tousLesEffets.get(i).getName();
 				test[i][1] = String.valueOf(tousLesEffets.get(i).getGrade());
 				test[i][2] = compareEffects(tousLesEffets.get(i).getId(),Persistence.getIdFromMedic(nomMedic));
-				// System.out.println(i);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -193,10 +191,7 @@ public class MedicineChange extends JDialog implements MyView{
                         return Boolean.class;
                 }
             }
-        };
-		
-		
-		
+        };		
 		
 	}
 	
@@ -239,29 +234,6 @@ public class MedicineChange extends JDialog implements MyView{
 		return estCoche;
 	}
 	
-	/*public static int[] getMedicEffects()
-	{
-		int[] listeDesEffets;
-		if(getNumberCheckedEffects()==0){
-			listeDesEffets = new int[2];
-			listeDesEffets[1] = 1;
-		} else
-			listeDesEffets = new int[getNumberCheckedEffects()+1];
-		try {
-			int medicId = Persistence.getIdFromMedic(medicament.getName());
-			listeDesEffets[0] = medicId;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if(getNumberCheckedEffects()>0){
-			for(int i=1;i<listeDesEffets.length;i++){
-				//Mettre dans le tableau les id des cases cochées
-			}
-		}
-		return listeDesEffets;
-		
-	}*/
-	
 	/**
 	 * Méthode statique qui retourne la liste des id des effets que possède un médicament
 	 * @return tableau de int des id des effets d'un médicament
@@ -271,7 +243,6 @@ public class MedicineChange extends JDialog implements MyView{
 		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
 		try{
 			int medicId = Persistence.getIdFromMedic(medicament.getName());
-		// Travailler avec la JTable, vérifier si la dernière colonne de la JTable est cochée et non depuis la BDD 
 			
 			listeDesEffets[0] = medicId;
 			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
@@ -297,40 +268,8 @@ public class MedicineChange extends JDialog implements MyView{
 			}
 			return listeDesEffets;
 	}
-	/**
-	 * Donne pour l'effet
-	 * @return 
-	 */
-	public static int[] getMedicEffects2()
-	{
-		int[] listeDesEffets = new int[Effect.allTheEffects.size()];
-		try{
-			int medicId = Persistence.getIdFromMedic(medicament.getName());
-			
-			listeDesEffets[0] = medicId;
-			boolean[] effetExiste = new boolean[Effect.allTheEffects.size()];
-			effetExiste = effectExist();
-			int j=1;
-			for(int i = 0;i<table.getRowCount();i++)
-			{
-				if(effetExiste[i] == true)
-				{
-					listeDesEffets[j] = Effect.allTheEffects.get(i).getId();
-					j++;
-				}
-			
-			}
-			
-			
-			for(int i=0;i<listeDesEffets.length;i++){
-				System.out.println(listeDesEffets[i]);
-			}
-		}
-		catch(SQLException e){
-				e.printStackTrace();
-			}
-			return listeDesEffets;
-	}
+
+
 	@Override
 	public void assignListener(Ctrl ctrl) {
 		this.btnValider.setActionCommand("MedicineChange_valider");
